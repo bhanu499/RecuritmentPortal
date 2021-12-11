@@ -1,0 +1,256 @@
+body,html{
+    height: 100vh;
+}
+
+body{
+    background-size:cover;
+    overflow: hidden;
+}
+
+
+
+router-outlet + div {
+    display: flex;
+    flex: 1;
+}
+
+.q-logo{
+    width: 180px;
+    margin-top: 10px;
+}
+
+button:focus{
+    outline: none;
+}
+
+input[type=checkbox] {
+    height: 18px;
+}
+input[type="checkbox"]:focus{
+    outline: none;
+}
+.flex-row{
+    display: flex;
+}
+ul{
+    list-style: none;
+}
+.nav-item{
+    margin-right: 30px;
+}
+
+.tab.nav-item{
+    margin-right: 60px;
+}
+
+.nav-link.active{
+    border-bottom: 2px solid grey;
+}
+
+input{
+    line-height: 30px !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+select {
+    height: 48px !important;
+}
+.btn{
+    background-color: #353B47;
+    border-color: #353B47;
+    border-radius: 26px;
+    color: whitesmoke;
+    cursor: pointer;
+    min-width: 120px;
+}
+.small-icon-btn{
+    min-width: 30px;
+    padding: 3px;
+    margin: 0;
+}
+.btn:hover{
+    background-color: #646e82;
+    border-color: #646e82;
+    color: whitesmoke;
+}
+
+.btn.disabled {
+    cursor: not-allowed;
+    background-color: #646e82;
+    border-color: #646e82;
+}
+
+.btn.disabled:hover {
+    background-color: #646e82;
+    border-color: #646e82;
+}
+
+.page-item.active .page-link{
+    background-color: #9D0015;
+    border-color: #9D0015;
+}
+
+.page-link{
+    color: #353B47;
+}
+
+.btn.red{
+    background-color: #9D0015;
+    border-color: #9D0015;
+    color: white;
+}
+
+.btn.red:hover{
+    background-color: #913a45;
+    border-color: #913a45;
+    color: whitesmoke;
+}
+
+.btn.light-gray{
+    background-color: #D9D7D7;
+    border-color: #D9D7D7;
+    color: #2b2a2a;
+}
+
+.btn.light-gray:hover{
+    background-color: #8c8989;
+    border-color: #8c8989;
+    color: whitesmoke;
+}
+
+.router-outlet-container {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.admin-data-container{
+    
+    background-color: white;
+    padding: 35px;
+    margin-top: 10px;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0px;
+}
+
+.admin-outlet-heading{
+    font-size: 1.4em;
+    color: whitesmoke;
+}
+
+.login-background {
+    background-image: url('~/dist/assets/img/login.jpg');
+}
+.dashboard-background{
+    background-image: url('~/dist/assets/img/dashboard.jpg');
+}
+
+.questions-tests-background{
+     background-image: url('~/dist/assets/img/dashboard.jpg');
+}
+
+.jobs-addAdmin-background{
+     background-image: url('~/dist/assets/img/dashboard.jpg');
+}
+
+.candidates-background{
+     background-image: url('~/dist/assets/img/dashboard.jpg');
+}
+
+.highcharts-credits{
+    display: none !important;
+}
+
+.flex-100{
+    flex: 1 1 100%;
+}
+
+.flex-auto{
+    flex: 1 1 auto;
+}
+
+.flex-50{
+    flex: 1 1 50%;
+}
+
+.imagePreview{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+@media (max-width: 858px) , (max-height: 543px){
+    .admin-outlet{
+        margin-left: 0px !important;
+        margin-right: 0px !important; 
+        margin-bottom: 0px !important; 
+        margin-top: 10px !important;
+        
+    }
+}
+
+#user-dropdown:before {
+    content:"";
+    position: absolute;
+    right: 11px;
+    top: -18px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #8C3138 transparent;
+    z-index:9999;
+    border-top-color: white;
+}
+#user-dropdown:after {
+    content:"";
+    position: absolute;
+    right: 4px;
+    top: -22px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 17px 17px 17px;
+    border-color: transparent transparent #ffffff transparent;
+    z-index:9998;
+}
+
+#user-dropdown {
+    border: none;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    float: left;
+    position: absolute;
+    margin: 0;
+    top: 2.8em;
+    width: 150px;
+    z-index: 99999;
+    margin-top: 23px;
+}
+
+@media (max-width: 547px){
+    .admin-data-container{
+        padding-left: 0px !important;
+        padding-right: 20px !important; 
+    }
+}
+
+::-webkit-scrollbar
+{
+  width: 7px;  /* for vertical scrollbars */
+  height: 7px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: rgba(0, 0, 0, 0.5);
+}

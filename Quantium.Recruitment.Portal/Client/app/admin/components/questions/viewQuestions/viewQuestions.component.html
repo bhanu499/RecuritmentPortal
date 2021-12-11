@@ -1,0 +1,107 @@
+<div style="padding: 20px;" *ngIf="questions?.length > 0">
+        <div class="d-flex view-questions-header" style="justify-content: center">
+                <div style="margin-right: 15px; display: flex">
+                        <p style="margin-right: 5px">Label:</p>
+                        <div class="form-group">
+                                <select class="form-control" #label="ngModel" id="label" name="label" required [(ngModel)]="selectedLabel" (ngModelChange)="labelOrDifficultyChanged()">
+                                        <option value="0" [selected]>No Selection</option>
+                                        <option *ngFor="let label of labels" [value]="label.Id">{{label.Name}}</option>
+                                </select>
+                        </div>
+                </div>
+                <div style="margin-right: 15px; display: flex">
+                        <p style="margin-right: 5px">Difficulty:</p>
+                        <div class="form-group">
+                                <select class="form-control" #difficulty="ngModel" id="difficulty" name="difficulty" required [(ngModel)]="selectedDifficulty" (ngModelChange)="labelOrDifficultyChanged()">
+                                        <option value="0" [selected]>No Selection</option>
+                                        <option *ngFor="let difficulty of difficulties" [value]="difficulty.Id">{{difficulty.Name}}</option>
+                                </select>
+                        </div>
+                </div>
+                <pagination
+                        class="pagination-sm"
+                        [(ngModel)]="page"
+                        [totalItems]="length"
+                        [itemsPerPage]="itemsPerPage"
+                        [maxSize]="maxSize"
+                        [boundaryLinks]="true"
+                        [rotate]="false"
+                        (pageChanged)="changePage($event)"
+                        (numPages)="numPages = $event">
+                </pagination>
+        </div>
+    <div *ngFor="let question of questions; let index=index">
+            <div class="question-attributes d-flex">
+                    <span><b>Time for question :</b> {{question.TimeInSeconds}} seconds</span>
+                    <span><b>Label : </b>{{question.Label.Name}}</span>
+                    <span><b> Difficulty : </b>{{question.Difficulty.Name}}</span>
+                    <span> <b>Randomize Options :</b> {{question.RandomizeOptions}}</span>
+                    <span tooltip="Delete question">
+                        <button type="button"  class="btn small-icon-btn red" (click)="deleteQuestion(question.Id)"><i class="fa fa-lg fa-trash"></i></button>
+                    </span>
+            </div>
+            <p *ngIf="question.QuestionGroup?.Description.length > 0"><span [innerHTML]="question.QuestionGroup.Description"></span></p>
+            <div>
+                    <b><p> {{((page-1)* 10) + (index + 1)}}. <span [innerHTML]="question.Text"></span></p></b>
+                    
+            </div>
+            <div *ngIf="question.ImageUrl?.length > 0">
+                    <img [src]="question.ImageUrl" class="imagePreview" style="margin-bottom: 10px"/>
+            </div>
+            <div class="previewOptionList" *ngIf="!question.IsRadio">
+                    <ul style="list-style: none">
+                    <li *ngFor="let option of question.Options">
+                            <p>
+                                    <i [ngClass]="option.IsAnswer ? 'fa fa-square': 'fa fa-square-o'"></i>
+                                    <span class="margin-left-10" [innerHTML]="option.Text"></span>
+                            </p>
+                    </li>
+                    </ul>
+            </div>
+            <div class="previewOptionList" *ngIf="question.IsRadio">
+                    <ul style="list-style: none">
+                    <li *ngFor="let option of question.Options">
+                            <p>
+                                    <i [ngClass]="option.IsAnswer ? 'fa fa-circle': 'fa fa-circle-o'"></i>
+                                    <span class="margin-left-10" [innerHTML]="option.Text"></span>
+                            </p>
+                    </li>
+                    </ul>
+            </div>
+            <hr>
+    </div>
+    <div class="d-flex" style="justify-content: center">
+        <pagination
+                class="pagination-sm"
+                [(ngModel)]="page"
+                [totalItems]="length"
+                [itemsPerPage]="itemsPerPage"
+                [maxSize]="maxSize"
+                [boundaryLinks]="true"
+                [rotate]="false"
+                (numPages)="numPages = $event">
+        </pagination>
+    </div>
+</div>
+
+<div *ngIf="!questions || questions?.length < 1" class="d-flex" style="justify-content: center; margin-top: 40px">
+        <span *ngIf="!questions"><b>Loading..</b></span>
+        <span *ngIf="questions && questions.length < 1"><b>No questions found</b></span>
+</div>
+<div bsModal #progress="bs-modal" class="modal fade" tabindex="-1" role="dialog" [config]="{backdrop: 'static', ignoreBackdropClick: true, keyboard: false}">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+                <h5 class="modal-title" style="width: 100%; text-align: center">{{modalResponse}}</h5>
+        </div>
+      
+      <div class="modal-footer" style="justify-content: center">
+                <span class="fa fa-spinner fa-spin fa-2x"  *ngIf="isRequestProcessing"></span>
+                
+                <button type="button" class="close"   *ngIf="!isRequestProcessing" (click)="closeModal()">
+                       <span class="fa fa-times-circle-o fa-2x"></span>
+                </button>
+        </div>
+    </div>
+  </div>
+</div>

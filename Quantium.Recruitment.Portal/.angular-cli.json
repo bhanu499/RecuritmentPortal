@@ -1,0 +1,41 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "aspnetcorespa"
+  },
+  "apps": [
+    {
+      "root": "Client",
+      "outDir": "wwwroot/dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "tsconfig": "tsconfig.json",
+      "prefix": "appc",
+      "styles": [],
+      "scripts": []
+    }
+  ],
+  "e2e": {
+    
+  },
+  "lint": [
+    {
+    },
+    {
+    },
+    {
+    }
+  ],
+  "test": {
+    
+  },
+  "defaults": {
+    "styleExt": "scss",
+    "component": {}
+  }
+}

@@ -1,0 +1,23 @@
+.question-attributes{
+    justify-content: flex-end;
+
+    span{
+        margin-right: 30px;
+    }
+
+    a{
+     &:hover{
+         border: 1px solid lightgray;
+         width: 50px;
+     }   
+    }
+}
+
+.view-questions-header{
+    select{
+        height: 27px !important;
+        line-height: 30px;
+        font-size: 13px;
+        padding: 2px;
+    }
+}

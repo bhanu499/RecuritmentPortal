@@ -1,0 +1,147 @@
+<div class="d-flex" style="justify-content: center">
+        <div class="upload-questions-container" style="padding: 20px;margin-top: 20px">
+
+                <div class="d-flex" style="justify-content: center; margin-bottom: 10px">
+                        <a style="cursor: pointer; text-decoration: underline; color:gray" (click)="lgModal.show()" tooltip="Click for help with formatting images"><i class="fa fa-2x fa-question-circle"></i></a>
+                </div>
+
+                <div class="d-flex">
+                        <div style="padding-top: 6px;">
+                                Download bulk upload template
+                        </div>
+                        <button type="button" class="btn btn-primary download-template" style="margin-bottom: 20px; margin-left: auto">
+                                <a href="/QuestionsTemplate.xlsx" download="Questions Template">Download</a>
+                        </button>
+                </div>
+
+                <div class="d-flex" style="margin-top: 20px">
+                        <div style="padding-top: 6px;">
+                                Upload .xlsx file
+                        </div>
+                        
+                        <div class="l-container" style="margin-left: auto">
+                                <div class="file-input-wrapper">
+                                        <span style="margin-right: auto; margin-top: 6px; margin-left: 10px">{{fileText}}</span>
+                                        <button class="btn-file-input btn light-gray">Browse</button>
+                                        <input type="file" name="file"  #fileInput="ngModel" [ngModel]="fileModel" accept=".xlsx" size="14" (click)="browseClick(fileInput)" (change)="onFileChange($event)" />
+                                </div>
+
+                        </div>
+                </div>
+                
+                <div class="d-flex" style="margin-bottom: 20px;margin-top: 40px; justify-content: space-between" >
+
+                        <button type="button" class="btn btn-primary light-gray" data-toggle="button" autocomplete="off" [disabled]="!fileData || validationFailed" (click)="previewQuestions(content)" >
+                                Preview
+                        </button>
+                        <button type="button" class="btn btn-primary red" data-toggle="button" autocomplete="off" [disabled]="!fileData || validationFailed" (click)="addQuestions(progress)">
+                                Save
+                        </button>
+
+                </div>
+                
+        </div>
+</div>
+
+ 
+<div bsModal #questionsPreview="bs-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg large-modal-window">
+    <div class="modal-content">
+            
+      <div class="modal-header">
+                <div class="d-flex" style="flex: 1 1 auto; justify-content: center">
+                        <h4 class="modal-title">Your questions</h4>
+                </div>
+                <button type="button" class="close" aria-label="Close" (click)="questionsPreview.hide()">
+                        <span><i class="fa fa-times-circle-o fa-2x"></i></span>
+                </button>
+     </div>
+
+      <div class="modal-body">
+                <div *ngFor="let question of questions; let index=index">
+                        <div class="question-attributes d-flex">
+                                <span><b>Time for question :</b> {{question.TimeInSeconds}} seconds</span>
+                                <span><b>Label : </b>{{question.Label.Name}}</span>
+                               <span><b> Difficulty : </b>{{question.Difficulty.Name}}</span>
+                               <span> <b>Randomize Options :</b> {{question.RandomizeOptions}}</span>
+                        </div>
+                        <b><p *ngIf="question.QuestionGroup.Description.length > 0">{{index + 1}}. <span [innerHTML]="question.QuestionGroup.Description"></span></p></b>
+                        <b><p> <span *ngIf="question.QuestionGroup.Description.length < 1">{{index + 1}}. </span> <span [innerHTML]="question.Text"></span></p></b>
+                        <div *ngIf="question.ImageUrl?.length > 0">
+                                <img [src]="question.ImageUrl" class="imagePreview" style="margin-bottom: 10px"/>
+                        </div>
+                        <div class="previewOptionList" *ngIf="!question.IsRadio">
+                                <ul style="list-style: none">
+                                <li *ngFor="let option of question.Options">
+                                        <p>
+                                                <i [ngClass]="option.IsAnswer ? 'fa fa-square': 'fa fa-square-o'"></i>
+                                                <span class="margin-left-10" [innerHTML]="option.Text"></span>
+                                        </p>
+                                </li>
+                                </ul>
+                        </div>
+                        <div class="previewOptionList" *ngIf="question.IsRadio">
+                                <ul style="list-style: none">
+                                <li *ngFor="let option of question.Options">
+                                        <p>
+                                                <i [ngClass]="option.IsAnswer ? 'fa fa-circle': 'fa fa-circle-o'"></i>
+                                                <span class="margin-left-10" [innerHTML]="option.Text"></span>
+                                        </p>
+                                </li>
+                                </ul>
+                        </div>
+                        <hr>
+                </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<div bsModal #progress="bs-modal" class="modal fade" tabindex="-1" role="dialog" [config]="{backdrop: 'static', ignoreBackdropClick: true, keyboard: false}">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header" style="justify-content: center">
+            <h5 class="modal-title">{{modalResponse}}</h5>
+
+        </div>
+        <span style="text-align: center">{{errorMessage}}</span>
+        <div class="modal-footer" style="justify-content: center">
+            <span class="fa fa-spinner fa-spin fa-3x" *ngIf="isRequestProcessing"></span>
+
+            <button type="button" class="close" *ngIf="!isRequestProcessing" (click)="closeProgressModal()">
+                <span class="fa fa-times-circle-o fa-2x"></span>
+            </button>
+        </div>
+    </div>
+  </div>
+</div>
+ 
+
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #353B47; color: whitesmoke">
+        <h4 class="modal-title pull-left">Image Formatting </h4>
+        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+          <span style="color:whitesmoke">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>If you dont want to resize the images you add in the excel file, follow the below steps</p>
+        <ul>
+                <li>In Excel, go to File->Options->Advanced</li>
+                <li>Under Image Size and Quality section, check "Do not compress images in file"</li>
+        </ul>
+        <p>To fit image in a cell under "Image" column, follow the below steps</p>
+        <ul>
+                <li>In Excel, click on the cell you want to add the image</li>
+                <li>Click on Insert-> Pictures and choose your image</li>
+                <li>Click and drag the image corner using mouse to fit in a cell</li>
+                <li>After resizing, right click the image and click "Format Picture"</li>
+                <li>Under "Format Picture" tab, go to "Properties" section and select "Move and size with cells"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

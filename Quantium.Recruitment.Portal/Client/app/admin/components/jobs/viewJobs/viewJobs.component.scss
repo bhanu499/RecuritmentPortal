@@ -1,0 +1,33 @@
+.job-container{
+    margin-bottom: 30px;
+}
+
+.view-job-container{
+    padding: 20px;
+}
+
+.label-container{
+    padding: 20px;
+    border: 1px solid lightgray;
+    margin-right: 20px;
+    width: 240px;
+    margin-bottom: 20px;
+}
+
+.small-icon-btn-2x{
+    padding: 3px;
+    cursor: pointer;
+    margin: 0;
+
+    i{
+        &:hover{
+            color: darkred;
+        }
+    }
+}
+
+.icon-2-5x{
+    i::before{
+        font-size: 40px;
+    }
+}
